@@ -1,10 +1,11 @@
-import time
 from tkinter import *
+import random
+import time
 
 
 class Ball:
     def __init__(self, canvas, colour):
-        self.canvas = Canvas
+        self.canvas = canvas
         self.id = canvas.create_oval(10, 10, 25, 25, fill=colour)
         self.canvas.move(self.id, 245, 100)
 
