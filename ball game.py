@@ -1,6 +1,5 @@
-from tkinter import *
-import random
 import time
+from tkinter import *
 
 
 class Ball:
@@ -10,7 +9,7 @@ class Ball:
         self.canvas.move(self.id, 245, 100)
 
     def draw(self):
-        pass
+        self.canvas.move(self.id, 0, -1)
 
 
 tk = Tk()
@@ -20,11 +19,11 @@ tk.wm_attributes('-topmost', 1)
 canvas = Canvas(tk, width=500, height=400, bd=0, highlightthickness=0)
 canvas.pack()
 tk.update()
+ball = Ball(canvas, 'red')
 tk.mainloop()
 
-ball = Ball(canvas, 'red')
-
 while 1:
+    ball.draw()
     tk.update_idletasks()
     tk.update()
     time.sleep(0.01)
