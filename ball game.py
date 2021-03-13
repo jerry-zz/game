@@ -28,18 +28,30 @@ class Ball:
             self.x = -3
 
 
+class Paddle:
+    def __init__(self, canvas, color):
+        self.canvas = canvas
+        self.id = canvas.create_rectangle(0, 0, 100, 10, fill=color)
+        self.canvas.move(self.id, 200, 300)
+        self.x = 0
+        self.canvas_width = self.canvas.winfo_width()
+
+    def draw(self):
+        pass
 
 tk = Tk()
 tk.title('Ball game')
 tk.resizable(0, 0)
 tk.wm_attributes('-topmost', 1)
-canvas = Canvas(tk, width=500, height=400, bd=0, highlightthickness=0)
+canvas = Canvas(tk, width=500, height=400, bd=0, highlightthickness=0, bg='white')
 canvas.pack()
 tk.update()
-ball = Ball(canvas, 'red')
+paddle = Paddle(canvas, 'red')
+ball = Ball(canvas, 'yellow')
 
 while 1:
     ball.draw()
+    paddle.draw()
     tk.update_idletasks()
     tk.update()
     time.sleep(0.01)
