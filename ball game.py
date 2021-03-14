@@ -2,7 +2,7 @@ import random
 import time
 from tkinter import *
 
-level = eval(input('难度等级(1-10):'))
+level = int(eval(input('难度等级(1-10):')))
 print('记得在弹出页面时单击一下哦!')
 time.sleep(1)
 mark = 0
