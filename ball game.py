@@ -2,10 +2,6 @@ import random
 import time
 from tkinter import *
 
-level = int(eval(input('难度等级(1-10):')))
-print('记得在弹出页面时单击一下哦!')
-time.sleep(1)
-mark = 0
 
 
 class Ball:
@@ -33,15 +29,15 @@ class Ball:
         self.canvas.move(self.id, self.x, self.y)
         pos = self.canvas.coords(self.id)
         if pos[1] <= 0:
-            self.y = level
+            self.y = 3
         if pos[3] >= self.canvas_height:
             self.hit_bottom = True
         if self.hit_paddle(pos) == True:
-            self.y = -level
+            self.y = -3
         if pos[0] <= 0:
-            self.x = level
+            self.x = 3
         if pos[2] >= self.canvas_width:
-            self.x = -level
+            self.x = -3
 
 
 class Paddle:
@@ -88,6 +84,3 @@ while 1:
     tk.update_idletasks()
     tk.update()
     time.sleep(0.01)
-    if ball.hit_paddle(ball.canvas.coords(ball.id)) == True:
-        mark = mark + 1
-print('游戏结束,你的得分是%s分!'%mark)
