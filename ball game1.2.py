@@ -109,13 +109,13 @@ def C():
         if ball.hit_paddle(ball.canvas.coords(ball.id)) == True:
             mark = mark + 1
             canvas.delete(a)
-            a = canvas.create_text(80, 30, text='得分:%s分' % mark, font=('Arial', 30))
+            a = canvas.create_text(90, 30, text='得分:%s分' % mark, font=('Arial', 30))
             tk2.quit()
 
 
-bt = Button(tk2, text='+1', command=A)
+bt = Button(tk2, text='难度等级+1', command=A)
 bt.pack()
-bt2 = Button(tk2, text='-1', command=B)
+bt2 = Button(tk2, text='难度等级-1', command=B)
 bt2.pack()
 bt3 = Button(tk2, text='确定', command=C)
 bt3.pack()
