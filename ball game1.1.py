@@ -84,16 +84,19 @@ ball = Ball(canvas, paddle, 'blue')
 
 while 1:
     now_time = time.time()
-    if start_time - now_time < game_time:
-        time_up = False
-    if ball.hit_bottom == False and time_up == False:
-        ball.draw()
-        paddle.draw()
+    true_game_time = now_time - start_time
+    if true_game_time < game_time:
+        if ball.hit_bottom == False:
+            ball.draw()
+            paddle.draw()
+        else:
+            break
+        tk.update_idletasks()
+        tk.update()
+        time.sleep(0.01)
+        if ball.hit_paddle(ball.canvas.coords(ball.id)) == True:
+            mark = mark + 1
     else:
         break
-    tk.update_idletasks()
-    tk.update()
-    time.sleep(0.01)
-    if ball.hit_paddle(ball.canvas.coords(ball.id)) == True:
-        mark = mark + 1
+
 print('游戏结束,你的得分是%s分!' % mark)
