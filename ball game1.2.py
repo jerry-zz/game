@@ -5,15 +5,16 @@ from tkinter import *
 level = 0
 game_time = 0
 tk_level_time = Tk()
-tk_level_time.title('难度等级;时间')
+tk_level_time.title('难度等级,时间设置')
+tk_level_time.resizable(0, 0)
 
 
 def level_up():
     global level
     level = level + 1
     canvas_level_time.delete('all')
-    canvas_level_time.create_text(150, 120, text='时间:%s分钟' % game_time, font=('Arial', 30))
-    canvas_level_time.create_text(150, 60, text='难度等级:%s级' % level, font=('Arial', 30))
+    canvas_level_time.create_text(200, 120, text='时间:%s分钟' % game_time, font=('Arial', 30))
+    canvas_level_time.create_text(200, 60, text='难度等级:%s级' % level, font=('Arial', 30))
 
 
 def level_down():
@@ -21,16 +22,16 @@ def level_down():
     if level > 0:
         level = level - 1
         canvas_level_time.delete('all')
-        canvas_level_time.create_text(150, 120, text='时间:%s分钟' % game_time, font=('Arial', 30))
-        canvas_level_time.create_text(150, 60, text='难度等级:%s级' % level, font=('Arial', 30))
+        canvas_level_time.create_text(200, 120, text='时间:%s分钟' % game_time, font=('Arial', 30))
+        canvas_level_time.create_text(200, 60, text='难度等级:%s级' % level, font=('Arial', 30))
 
 
 def time_up():
     global game_time
     game_time = game_time + 1
     canvas_level_time.delete('all')
-    canvas_level_time.create_text(150, 120, text='时间:%s分钟' % game_time, font=('Arial', 30))
-    canvas_level_time.create_text(150, 60, text='难度等级:%s级' % level, font=('Arial', 30))
+    canvas_level_time.create_text(200, 120, text='时间:%s分钟' % game_time, font=('Arial', 30))
+    canvas_level_time.create_text(200, 60, text='难度等级:%s级' % level, font=('Arial', 30))
 
 
 def time_down():
@@ -38,8 +39,8 @@ def time_down():
     if game_time > 0:
         game_time = game_time - 1
         canvas_level_time.delete('all')
-        canvas_level_time.create_text(150, 120, text='时间:%s分钟' % game_time, font=('Arial', 30))
-        canvas_level_time.create_text(150, 60, text='难度等级:%s级' % level, font=('Arial', 30))
+        canvas_level_time.create_text(200, 120, text='时间:%s分钟' % game_time, font=('Arial', 30))
+        canvas_level_time.create_text(200, 60, text='难度等级:%s级' % level, font=('Arial', 30))
 
 
 def level_time_sure():
@@ -114,18 +115,18 @@ def level_time_sure():
     tk.update()
     paddle = Paddle(canvas, 'yellow')
     ball = Ball(canvas, paddle, 'blue')
-    a = canvas.create_text(80, 30, text='得分:%s分' % mark, font=('Arial', 30))
+    canvas_mark = canvas.create_text(90, 30, text='得分:%s分' % mark, font=('Arial', 30))
+    canvas_time = canvas.create_text(250, 250, text='', font=('Arial', 50))
 
     while 1:
         now_time = time.time()
         true_game_time = now_time - start_time
-        if true_game_time < game_time:
+        r_game_time = int((game_time * 60) - true_game_time)
+        if true_game_time < (game_time * 60):
             if ball.hit_bottom == False:
                 ball.draw()
                 paddle.draw()
-                num_time = canvas.create_text(250, 250, text=true_game_time, font=('Arial', 50))
-                canvas.delete(num_time)
-                num_time = canvas.create_text(250, 250, text=true_game_time, font=('Arial', 50))
+
             else:
                 break
             tk.update_idletasks()
@@ -133,24 +134,30 @@ def level_time_sure():
             time.sleep(0.01)
             if ball.hit_paddle(ball.canvas.coords(ball.id)) == True:
                 mark = mark + 1
-            canvas.delete(a)
-            a = canvas.create_text(90, 30, text='得分:%s分' % mark, font=('Arial', 30))
+            canvas.delete(canvas_mark)
+            canvas.delete(canvas_time)
+            canvas_mark = canvas.create_text(90, 30, text='得分:%s分' % mark, font=('Arial', 30))
+            canvas_time = canvas.create_text(250, 150, text='%s' % r_game_time, font=('Arial', 100))
         else:
             break
     tk.quit()
 
 
-bt = Button(tk_level_time, text='难度等级+1', command=level_up)
-bt.pack()
-bt2 = Button(tk_level_time, text='难度等级-1', command=level_down)
-bt2.pack()
-bt3 = Button(tk_level_time, text='确定', command=level_time_sure)
-bt3.pack()
-bt = Button(tk_level_time, text='时间+1分钟', command=time_up)
-bt.pack()
-bt2 = Button(tk_level_time, text='时间-1分钟', command=time_down)
-bt2.pack()
-
-canvas_level_time = Canvas(tk_level_time, width=300, height=180, bd=0, bg='yellow')
+canvas_level_time = Canvas(tk_level_time, width=400, height=200, bd=0, bg='yellow')
 canvas_level_time.pack()
+bt_level_up = Button(tk_level_time, text='难度等级+1', command=level_up)
+bt_level_up.pack()
+bt_level_up.place(x=10, y=45)
+bt_level_down = Button(tk_level_time, text='难度等级-1', command=level_down)
+bt_level_down.pack()
+bt_level_down.place(x=320, y=45)
+bt_sure = Button(tk_level_time, text='确定', command=level_time_sure)
+bt_sure.pack()
+bt_sure.place(x=200, y=170)
+bt_time_up = Button(tk_level_time, text='时间+1分钟', command=time_up)
+bt_time_up.pack()
+bt_time_up.place(x=10, y=100)
+bt_time_down = Button(tk_level_time, text='时间-1分钟', command=time_down)
+bt_time_down.pack()
+bt_time_down.place(x=320, y=100)
 tk_level_time.mainloop()
