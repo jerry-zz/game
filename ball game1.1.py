@@ -3,9 +3,12 @@ import time
 from tkinter import *
 
 level = int(eval(input('难度等级(1-10):')))
+game_time = int(eval(input('时间(分钟):')))
 print('记得在弹出页面时单击一下哦!')
 time.sleep(1)
 mark = 0
+
+start_time = time.time()
 
 
 class Ball:
@@ -80,7 +83,10 @@ paddle = Paddle(canvas, 'yellow')
 ball = Ball(canvas, paddle, 'blue')
 
 while 1:
-    if ball.hit_bottom == False:
+    now_time = time.time()
+    if start_time - now_time < game_time:
+        time_up = False
+    if ball.hit_bottom == False and time_up == False:
         ball.draw()
         paddle.draw()
     else:
@@ -90,4 +96,4 @@ while 1:
     time.sleep(0.01)
     if ball.hit_paddle(ball.canvas.coords(ball.id)) == True:
         mark = mark + 1
-print('游戏结束,你的得分是%s分!'%mark)
+print('游戏结束,你的得分是%s分!' % mark)
