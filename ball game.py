@@ -3,7 +3,6 @@ import time
 from tkinter import *
 
 
-
 class Ball:
     def __init__(self, canvas, paddle, color):
         self.canvas = canvas
@@ -69,7 +68,7 @@ tk = Tk()
 tk.title('Ball game')
 tk.resizable(0, 0)
 tk.wm_attributes('-topmost', 1)
-canvas = Canvas(tk, width=500, height=400, bd=0, highlightthickness=0, bg='white')
+canvas = Canvas(tk, width=500, height=500, bd=0, highlightthickness=0, bg='white')
 canvas.pack()
 tk.update()
 paddle = Paddle(canvas, 'yellow')
