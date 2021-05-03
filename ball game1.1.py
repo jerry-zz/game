@@ -86,6 +86,7 @@ while 1:
     now_time = time.time()
     true_game_time = now_time - start_time
     if true_game_time < game_time:
+        level=level+0.01
         if ball.hit_bottom == False:
             ball.draw()
             paddle.draw()
